@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  webserver:
+    container_name: static-website
+    image: lipanski/docker-static-website:latest
+    restart: unless-stopped
+    networks:
+      - proxy
+    volumes:
+      - ./static:/home/static
+      - ./httpd.conf:/home/static/httpd.conf:ro
+    labels:
+      - "traefik.enable=true"
+networks:
+  proxy:
+    external: true
