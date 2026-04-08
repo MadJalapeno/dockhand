@@ -16,5 +16,7 @@ services:
       - 8080:8080
       - 6881:6881
       - 6881:6881/udp
+    depends_on: 
+      - gluetun
     restart: unless-stopped
     network_mode: "container:gluetun"
