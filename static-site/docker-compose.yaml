@@ -1,16 +1,18 @@
-version: "3.9"
 services:
   webserver:
     container_name: static-website
     image: lipanski/docker-static-website:latest
     restart: unless-stopped
     networks:
-      - proxy
+      - traefik-proxy
     volumes:
       - ./static:/home/static
       - ./httpd.conf:/home/static/httpd.conf:ro
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.umami.rule=Host(`10w.nl`)"
+      - "traefik.http.routers.umami.tls.certResolver=cloudflare"
+      - "traefik.http.services.umami.loadbalancer.server.port=3000"
 networks:
-  proxy:
+  traefik-proxy:
     external: true
