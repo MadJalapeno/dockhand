@@ -6,8 +6,8 @@ services:
     networks:
       - traefik-proxy
     volumes:
-      - ./static:/home/static
-      - ./httpd.conf:/home/static/httpd.conf:ro
+      - /opt/docker/static-site/static:/home/static
+      - /opt/docker/static-site/httpd.conf:/home/static/httpd.conf:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.static-site.rule=Host(`10w.nl`)"
