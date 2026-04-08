@@ -10,9 +10,9 @@ services:
       - ./httpd.conf:/home/static/httpd.conf:ro
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.umami.rule=Host(`10w.nl`)"
-      - "traefik.http.routers.umami.tls.certResolver=cloudflare"
-      - "traefik.http.services.umami.loadbalancer.server.port=3000"
+      - "traefik.http.routers.static-site.rule=Host(`10w.nl`)"
+      - "traefik.http.routers.static-site.tls.certResolver=cloudflare"
+      - "traefik.http.services.static-site.loadbalancer.server.port=3000"
 networks:
   traefik-proxy:
     external: true
