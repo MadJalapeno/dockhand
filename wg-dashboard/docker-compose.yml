@@ -3,26 +3,26 @@ services:
     image: ghcr.io/wgdashboard/wgdashboard:latest
     restart: unless-stopped
     container_name: wgdashboard
-
+    networks:
+      - traefik-proxy
     ports:
       # - 10086:10086/tcp
       - 51820:51820/udp
-
     volumes:
       - aconf:/etc/amnezia/amneziawg
       - conf:/etc/wireguard
       - data:/data
-
     cap_add:
       - NET_ADMIN
-
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.wg.rule=Host(`wg.10w.nl`)"
       - "traefik.http.routers.wg.entrypoints=websecure"
       - "traefik.http.routers.wg.service=wg"
       - "traefik.http.services.wg.loadbalancer.server.port=10086"
-
+networks:
+  traefik-proxy:
+    external: true
 volumes:
   aconf:
   conf:
