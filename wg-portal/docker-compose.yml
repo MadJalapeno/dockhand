@@ -1,6 +1,6 @@
 services:
   wg-portal:
-    image: wgportal/wg-portal:v2
+    image: wgportal/wg-portal:latest
     container_name: wg-portal
     restart: unless-stopped
     logging:
@@ -18,7 +18,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.wg-portal.rule=Host(`wg-portal.10w.nl`)"
       - "traefik.http.routers.wg-portal.entrypoints=websecure"
-      - "traefik.http.routers.wg-portal.service=wg"
+      - "traefik.http.routers.wg-portal.service=wg-portal"
       - "traefik.http.services.wg-portal.loadbalancer.server.port=8888"
     volumes:
       # left side is the host path, right side is the container path
