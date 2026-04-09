@@ -13,7 +13,7 @@ services:
     networks:
       - traefik-proxy
     ports:
-      - 51820:51820/udp
+      - 51825:51820/udp
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.wg-portal.rule=Host(`wg-portal.10w.nl`)"
