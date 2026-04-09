@@ -1,0 +1,30 @@
+services:
+  wg-portal:
+    image: wgportal/wg-portal:v2
+    container_name: wg-portal
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    cap_add:
+      - NET_ADMIN
+    # Use host network mode for WireGuard and the UI. Ensure that access to the UI is properly secured.
+    networks:
+      - traefik-proxy
+    ports:
+      - 51820:51820/udp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wg-portal.rule=Host(`wg-portal.10w.nl`)"
+      - "traefik.http.routers.wg-portal.entrypoints=websecure"
+      - "traefik.http.routers.wg-portal.service=wg"
+      - "traefik.http.services.wg-portal.loadbalancer.server.port=8888"
+    volumes:
+      # left side is the host path, right side is the container path
+      - ./wireguard:/etc/wireguard
+      - ./data:/app/data
+      - ./config:/app/config
+networks:
+  traefik-proxy:  
+    external: true
