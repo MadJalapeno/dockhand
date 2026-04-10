@@ -16,3 +16,7 @@ services:
       - ./data:/app/data
     security_opt:
       - no-new-privileges:true
+
+networks:
+  traefik-proxy:
+    external: true
