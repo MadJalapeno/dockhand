@@ -21,8 +21,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.wgbuddy.rule=Host(`wgbuddy.10w.nl`)"
       - "traefik.http.routers.wgbuddy.entrypoints=websecure"
-      - "traefik.http.routers.wgbuddy.service=wgbuddy"
-      - "traefik.http.services.wgbuddy.loadbalancer.server.port=8000"
+      - "traefik.http.services.wgbuddy.loadbalancer.server.url=http://127.0.0.1:8000"
 
 #networks:
 #  traefik-proxy:
