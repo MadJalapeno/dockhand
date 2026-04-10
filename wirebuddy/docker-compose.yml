@@ -19,10 +19,20 @@ services:
       - no-new-privileges:true
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.wgbuddy.rule=Host(`wgbuddy.10w.nl`)"
-      - "traefik.http.routers.wgbuddy.entrypoints=websecure"
-      - "traefik.http.services.wgbuddy.loadbalancer.server.url=http://127.0.0.1:8000"
-
-#networks:
-#  traefik-proxy:
-#    external: true
+      - "traefik.http.routers.wirebuddy.rule=Host(`vpn.10w.nl`)"
+      - "traefik.http.routers.wirebuddy.entrypoints=websecure"
+      - "traefik.http.routers.wirebuddy.tls.certresolver=letsencrypt"
+    
+      # Security Headers
+      - "traefik.http.middlewares.wirebuddy-headers.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.wirebuddy-headers.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.wirebuddy-headers.headers.stsPreload=true"
+      - "traefik.http.middlewares.wirebuddy-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.wirebuddy-headers.headers.frameDeny=true"
+      - "traefik.http.middlewares.wirebuddy-headers.headers.customResponseHeaders.Referrer-Policy=strict-origin-when-cross-origin"
+    
+      # Request body limit (100MB for backups)
+      - "traefik.http.middlewares.wirebuddy-body.buffering.maxRequestBodyBytes=104857600"
+    
+      # Apply middlewares
+      - "traefik.http.routers.wirebuddy.middlewares=wirebuddy-headers,wirebuddy-body"
