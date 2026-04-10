@@ -6,8 +6,8 @@ services:
     networks:
       - traefik-proxy 
     ports: 
-      51829:51820
-      9000:8000
+      - 51829:51820
+      - 9000:8000
     cap_add:
       - NET_ADMIN       # Required for network configuration
     env_file:
