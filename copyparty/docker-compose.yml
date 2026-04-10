@@ -1,0 +1,11 @@
+services:
+    ac:
+        image: copyparty/ac
+        volumes:
+            - '$PWD/cfgdir:/cfg'
+            - '/mnt/nas:/w'
+        ports:
+            - '3923:3923'
+        user: '1000'
+        tty: true
+        stdin_open: true
