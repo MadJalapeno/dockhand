@@ -11,7 +11,7 @@ services:
     cap_add:
       - NET_ADMIN       # Required for network configuration
     env_file:
-      - settings.env
+      - .env
     volumes:
       - ./data:/app/data
     security_opt:
