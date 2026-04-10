@@ -22,6 +22,7 @@ services:
       - "traefik.http.routers.wirebuddy.rule=Host(`vpn.10w.nl`)"
       - "traefik.http.routers.wirebuddy.entrypoints=websecure"
       - "traefik.http.routers.wirebuddy.tls.certresolver=letsencrypt"
+      - "traefik.http.services.wirebuddy.loadbalancer.server.url=http://172.17.0.1:8000"
     
       # Security Headers
       - "traefik.http.middlewares.wirebuddy-headers.headers.stsSeconds=31536000"
