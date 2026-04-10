@@ -3,11 +3,12 @@ services:
     image: giiibates/wirebuddy:latest
     container_name: wirebuddy
     restart: unless-stopped
-    networks:
-      - traefik-proxy 
-    ports: 
-      - 51829:51820
-      - 9000:8000
+    network_mode: host
+    #networks:
+    #  - traefik-proxy 
+    #ports: 
+    #  - 51829:51820
+    #  - 9000:8000
     cap_add:
       - NET_ADMIN       # Required for network configuration
     env_file:
@@ -17,6 +18,6 @@ services:
     security_opt:
       - no-new-privileges:true
 
-networks:
-  traefik-proxy:
-    external: true
+#networks:
+#  traefik-proxy:
+#    external: true
