@@ -1,0 +1,18 @@
+services:
+  wirebuddy:
+    image: giiibates/wirebuddy:latest
+    container_name: wirebuddy
+    restart: unless-stopped
+    networks:
+      - traefik-proxy 
+    ports: 
+      51829:51820
+      9000:8000
+    cap_add:
+      - NET_ADMIN       # Required for network configuration
+    env_file:
+      - settings.env
+    volumes:
+      - ./data:/app/data
+    security_opt:
+      - no-new-privileges:true
