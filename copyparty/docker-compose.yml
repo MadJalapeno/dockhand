@@ -9,7 +9,7 @@ configs:
       admin:changemenow
 
       [/]
-      /data
+      /w
       accs:
         rw: admin
 
