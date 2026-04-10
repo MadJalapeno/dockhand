@@ -7,7 +7,7 @@ services:
     #networks:
     #  - traefik-proxy 
     #ports: 
-    #  - 51829:51820
+    #  - 51820:51820
     #  - 9000:8000
     cap_add:
       - NET_ADMIN       # Required for network configuration
@@ -17,6 +17,12 @@ services:
       - ./data:/app/data
     security_opt:
       - no-new-privileges:true
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wgbuddy.rule=Host(`wgbuddy.10w.nl`)"
+      - "traefik.http.routers.wgbuddy.entrypoints=websecure"
+      - "traefik.http.routers.wgbuddy.service=wgbuddy"
+      - "traefik.http.services.wgbuddy.loadbalancer.server.port=8000"
 
 #networks:
 #  traefik-proxy:
