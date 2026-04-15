@@ -12,8 +12,11 @@ services:
       - TZ=America/New_York
     restart: unless-stopped
     labels:
+    labels:
       - "traefik.enable=true"
-
+      - "traefik.http.routers.spoolman.rule=Host(`spoolman.10w.dev`)"
+      - "traefik.http.services.spoolman.loadbalancer.server.port=8000"
+      
  bambulab-ams-spoolman-filamentstatus:
    image: ghcr.io/rdiger-36/bambulab-ams-spoolman-filamentstatus:latest
    container_name: spoolman-bambu-ams
