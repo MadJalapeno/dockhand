@@ -28,7 +28,7 @@ services:
    ports:
      - 4000:4000
    environment:
-     - SPOOLMAN_ENDPOINT=http://:spoolman:8000
+     - SPOOLMAN_ENDPOINT=http://spoolman:8000
      - UPDATE_INTERVAL=120000
      - MODE=automatic
    volumes:
