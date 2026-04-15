@@ -12,7 +12,6 @@ services:
       - TZ=America/New_York
     restart: unless-stopped
     labels:
-    labels:
       - "traefik.enable=true"
       - "traefik.http.routers.spoolman.rule=Host(`spoolman.10w.dev`)"
       - "traefik.http.services.spoolman.loadbalancer.server.port=8000"
