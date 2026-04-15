@@ -1,10 +1,38 @@
 services:
   spoolman:
+    container_name: spoolman
     image: ghcr.io/donkie/spoolman:latest
     volumes:
-        - /opt/docker/spoolman/data:/home/app/.local/share/spoolman
+      - /opt/docker/spoolman/data:/home/app/.local/share/spoolman
+    networks:
+      - nginxproxyman_default
     ports:
       - "7912:8000"
     environment:
       - TZ=America/New_York
     restart: unless-stopped
+    labels:
+
+ bambulab-ams-spoolman-filamentstatus:
+   image: ghcr.io/rdiger-36/bambulab-ams-spoolman-filamentstatus:latest
+   container_name: spoolman-bambu-ams
+   depends_on:
+     spoolman:
+       condition: service_started
+       restart: true
+   networks:
+     - nginxproxyman_default
+   ports:
+     - 4000:4000
+   environment:
+     - SPOOLMAN_ENDPOINT=http://:spoolman:8000
+     - UPDATE_INTERVAL=120000
+     - MODE=automatic
+   volumes:
+     - /opt/docker/spoolman/printers:/app/printers
+     - /opt/docker/spoolman/config/logs:/app/logs
+   restart: unless-stopped
+
+networks:
+  nginxproxyman_default:
+    external: true
