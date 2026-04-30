@@ -12,7 +12,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.pingvin.rule=Host(`files.10w.us`)"
       - "traefik.http.routers.pingvin.entrypoints=websecure"
-      - "traefik.http.services.wg.loadbalancer.server.port=3000"
+      - "traefik.http.routers.pingvin.service=pingvin"
+      - "traefik.http.services.pingvin.loadbalancer.server.port=3000"
     networks:
       - proxy
 networks:
