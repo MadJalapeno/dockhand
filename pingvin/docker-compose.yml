@@ -1,0 +1,21 @@
+services:
+  pingvin-share:
+    image: stonith404/pingvin-share # or ghcr.io/stonith404/pingvin-share
+    container_name: pingvin
+    restart: unless-stopped
+    environment:
+      - TRUST_PROXY=true # Set to true if a reverse proxy is in front of the container
+    volumes:
+      - "./data:/opt/app/backend/data"
+      - "./data/images:/opt/app/frontend/public/img"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pingvin.rule=Host(`files.10w.us`)"
+      - "traefik.http.routers.pingvin.entrypoints=websecure"
+      - "traefik.http.routers.pingvin.service=pingvin"
+      - "traefik.http.services.wg.loadbalancer.server.port=3000"
+    networks:
+      - traefik-proxy
+networks:
+  traefik-proxy:
+    external: true
