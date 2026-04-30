@@ -15,7 +15,7 @@ services:
       - "traefik.http.routers.pingvin.service=pingvin"
       - "traefik.http.services.wg.loadbalancer.server.port=3000"
     networks:
-      - traefik-proxy
+      - proxy
 networks:
-  traefik-proxy:
+  proxy:
     external: true
