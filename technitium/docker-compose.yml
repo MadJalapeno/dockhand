@@ -16,8 +16,8 @@ services:
       - config:/etc/dns
       - logs:/var/log/technitium/dns
     restart: unless-stopped
-    sysctls:
-      - net.ipv4.ip_local_port_range=1024 65535
+    #sysctls:
+    #  - net.ipv4.ip_local_port_range=1024 65535
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dns.rule=Host(`dns.10w.nl`)"
