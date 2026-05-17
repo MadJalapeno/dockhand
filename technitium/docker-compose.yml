@@ -51,6 +51,17 @@ services:
     restart: unless-stopped
     sysctls:
       - net.ipv4.ip_local_port_range=1024 65535 #remove when using "host" network mode
+        labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dns.rule=Host(`dns.10w.nl`)"
+      - "traefik.http.routers.dns.tls.certResolver=cloudflare"
+      - "traefik.http.services.dns.loadbalancer.server.port=53443"
+    networks:
+      - traefik-proxy
+      
+networks:
+  traefik-proxy:
+    external: true
 
 volumes:
     config:
