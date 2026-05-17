@@ -22,7 +22,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.dns.rule=Host(`dns.10w.nl`)"
       - "traefik.http.routers.dns.tls.certResolver=cloudflare"
-      - "traefik.http.services.dns.loadbalancer.server.port=53443"
+      - "traefik.http.services.dns.loadbalancer.server.port=5380"
     networks:
       - traefik-proxy
 
