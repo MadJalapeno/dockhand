@@ -1,0 +1,17 @@
+services:
+  vikunja:
+    image: vikunja/vikunja:2.3.0
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: https://tasks.10w.dev/
+      VIKUNJA_SERVICE_SECRET: 637653ad37a22d68088d8708d659515a0394313a7751a2b4bcc8db393292a6df
+      VIKUNJA_DATABASE_PATH: /db/vikunja.db
+    volumes:
+      - ./files:/app/vikunja/files
+      - ./db:/db
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vikunja.rule=Host(`tasks.10w.dev`)"
+      - "traefik.http.routers.vikunja.entrypoints=websecure"
+      - "traefik.http.routers.vikunja.tls.certresolver=letsencrypt"
+      - "traefik.http.services.vikunja.loadbalancer.server.port=3456"
